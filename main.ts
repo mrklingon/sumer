@@ -11,7 +11,22 @@ function showStats () {
     basic.showNumber(Planting)
     Mode = svMode
 }
+function doKatastrophe () {
+    if (randint(0, 10) > 5) {
+        basic.showString("Rats!")
+        Rats = Math.trunc(Grain / randint(2, 5))
+        basic.showNumber(Rats)
+        Grain = Grain - Rats
+    } else {
+        basic.showString("Plaque!")
+        Plague = Math.trunc(Population / randint(2, 5))
+        basic.showNumber(Plague)
+        Population = Population - Plague
+    }
+}
 function doYear () {
+    Plague = 0
+    Rats = 0
     Grain = Grain - Planting
     Crop = randint(20, 50) / 10 * Planting
     basic.showString("C")
@@ -24,6 +39,10 @@ function doYear () {
     basic.showNumber(Immigrants)
     Population = Immigrants + (Population - Death)
     Grain = Grain + Crop
+    if (6 < randint(0, 10)) {
+        basic.showString("Catastrophe!")
+        doKatastrophe()
+    }
 }
 input.onButtonPressed(Button.A, function () {
     if (Food == Mode) {
@@ -98,6 +117,10 @@ let Planting = 0
 let ACRES = 0
 let EAT = 0
 let Mode = 0
+let Rats = 0
+let Plague = 0
+Plague = 0
+Rats = 0
 basic.showString("Sumer")
 images.createBigImage(`
     . . . . . . . . . .
